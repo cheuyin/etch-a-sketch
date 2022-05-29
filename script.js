@@ -5,6 +5,7 @@ const initialGridSize = 10;
 const clearButton = document.querySelector(".clear button");
 const eraserButton = document.querySelector(".eraser button");
 const rainbowModeButton = document.querySelector(".rainbow-mode button");
+const colorPicker = document.querySelector(".color-picker input");
 
 renderGrid(initialGridSize)
 showGridSize(initialGridSize)
@@ -32,6 +33,12 @@ eraserButton.addEventListener("click", (event) => {
 rainbowModeButton.addEventListener("click", (event) => {
     eraserButton.classList.remove("on");
     event.target.classList.toggle("on");
+});
+
+colorPicker.addEventListener("change", (event) => {
+    eraserButton.classList.remove("on");
+    rainbowModeButton.classList.remove("on");
+    event.target.setAttribute("value", event.target.value);
 });
 
 function renderGrid (size) {
@@ -91,15 +98,16 @@ function turnOffDrawingOrErasing() {
 }
 
 function colorSquare(event) {
-    if (event.target.getAttribute("style") !== null) {
-        return;
+    if (event.target.style.backgroundColor !== "") {
+        return false;
     }
+    
     if (rainbowModeButton.classList.contains("on")) {
         const randomColor = generateRandomRGBColor();
         event.target.setAttribute("style", `background-color: ${randomColor}`);
         return;
     }
-    event.target.style.backgroundColor = "black"
+    event.target.style.backgroundColor = colorPicker.getAttribute("value");
 }
 
 function eraseSquare(event) {

@@ -19,7 +19,7 @@ Priority:
     [x] Only allow shading when left click button is held 
     [x] Add a "clear" button
     [x] Add an eraser
-    6. Add "rainbow mode" 
+    [x] Add "rainbow mode" 
     7. Add RGB color change button 
     8. Add a "toggle shading" button
     9. Create CSS that's responsive 

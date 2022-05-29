@@ -20,7 +20,7 @@ Priority:
     [x] Add a "clear" button
     [x] Add an eraser
     [x] Add "rainbow mode" 
-    7. Add RGB color change button 
+    [x] Add RGB color change button 
     8. Add a "toggle shading" button
     9. Create CSS that's responsive 
     

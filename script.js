@@ -6,6 +6,10 @@ const clearButton = document.querySelector(".clear button");
 const eraserButton = document.querySelector(".eraser button");
 const rainbowModeButton = document.querySelector(".rainbow-mode button");
 const colorPicker = document.querySelector(".color-picker input");
+const shadingModeButton = document.querySelector(".shading-mode button");
+
+
+let currentColor = [];
 
 renderGrid(initialGridSize)
 showGridSize(initialGridSize)
@@ -40,6 +44,11 @@ colorPicker.addEventListener("change", (event) => {
     rainbowModeButton.classList.remove("on");
     event.target.setAttribute("value", event.target.value);
 });
+
+shadingModeButton.addEventListener("click", (event) => {
+    eraserButton.classList.remove("on");
+    event.target.classList.toggle("on")
+})
 
 function renderGrid (size) {
     deleteOldGrid();
@@ -102,11 +111,25 @@ function colorSquare(event) {
         return false;
     }
     
+    // Color randomly if rainbow mode is on
     if (rainbowModeButton.classList.contains("on")) {
         const randomColor = generateRandomRGBColor();
         event.target.setAttribute("style", `background-color: ${randomColor}`);
         return;
     }
+
+    // If shading mode on, increase opacity if less than 1
+    if (shadingModeButton.classList.contains("on")) {
+        const currentColor = RGBHexToDecimal(colorPicker.getAttribute("value"));
+        console.log(currentColor)
+        event.target.style.backgroundColor = `rgba(${currentColor[0]}, 
+                    ${currentColor[1]}, 
+                    ${currentColor[2]}, 
+                    ${0.1})`;
+        return;
+    }
+
+    // Color the square
     event.target.style.backgroundColor = colorPicker.getAttribute("value");
 }
 
@@ -119,4 +142,11 @@ function generateRandomRGBColor() {
     const randomG = Math.floor(Math.random() * 255) + 1;
     const randomB = Math.floor(Math.random() * 255) + 1;
     return `rgb(${randomR},${randomG},${randomB})`;
+}
+
+function RGBHexToDecimal (hexString) {;
+    const r = parseInt(hexString.slice(1, 3), 16);
+    const g = parseInt(hexString.slice(3, 5), 16);
+    const b = parseInt(hexString.slice(5), 16);
+    return [r, g, b];
 }

@@ -1,12 +1,14 @@
 const drawingGrid = document.querySelector(".grid")
 const gridSizeSliderLabel = document.querySelector(".grid-size-slider label")
-const gridSizeSlider = document.querySelector(".grid-size-slider");
+const gridSizeSlider = document.querySelector(".grid-size-slider input");
 const initialGridSize = 10;
+const clearButton = document.querySelector(".clear button");
 
 renderGrid(initialGridSize)
 showGridSize(initialGridSize)
 
 gridSizeSlider.addEventListener("input", (event) => {
+    event.target.setAttribute("value", event.target.value); // Update slider attribute
     showGridSize(event.target.value);
 });
 
@@ -14,6 +16,12 @@ gridSizeSlider.addEventListener("change", (event) => {
     renderGrid(+event.target.value);
 });
 
+clearButton.addEventListener("click", () => {
+    deleteOldGrid();
+    const currentGridSize = gridSizeSlider.getAttribute("value")
+    console.log(currentGridSize);
+    renderGrid(currentGridSize);
+});
 
 function renderGrid (size) {
     deleteOldGrid();

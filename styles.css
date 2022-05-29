@@ -3,6 +3,7 @@
     height: 400px;
     display: flex;
     flex-direction: column;
+    border: 5px solid black;
 }
 
 .row {
@@ -11,7 +12,6 @@
 }
 
 .square {
-    border: 1px solid black;
     flex: 1;
 }
 

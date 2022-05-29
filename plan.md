@@ -18,7 +18,7 @@ Priority:
     [x] Create a slider to change grid size from 2x2 to 64x64
     [x] Only allow shading when left click button is held 
     [x] Add a "clear" button
-    5. Add an eraser
+    [x] Add an eraser
     6. Add "rainbow mode" 
     7. Add RGB color change button 
     8. Add a "toggle shading" button

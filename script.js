@@ -4,6 +4,7 @@ const gridSizeSlider = document.querySelector(".grid-size-slider input");
 const initialGridSize = 10;
 const clearButton = document.querySelector(".clear button");
 const eraserButton = document.querySelector(".eraser button");
+const rainbowModeButton = document.querySelector(".rainbow-mode button");
 
 renderGrid(initialGridSize)
 showGridSize(initialGridSize)
@@ -24,6 +25,12 @@ clearButton.addEventListener("click", () => {
 });
 
 eraserButton.addEventListener("click", (event) => {
+    rainbowModeButton.classList.remove("on");
+    event.target.classList.toggle("on");
+});
+
+rainbowModeButton.addEventListener("click", (event) => {
+    eraserButton.classList.remove("on");
     event.target.classList.toggle("on");
 });
 
@@ -84,14 +91,24 @@ function turnOffDrawingOrErasing() {
 }
 
 function colorSquare(event) {
-    event.target.classList.add("color-black")
+    if (event.target.getAttribute("style") !== null) {
+        return;
+    }
+    if (rainbowModeButton.classList.contains("on")) {
+        const randomColor = generateRandomRGBColor();
+        event.target.setAttribute("style", `background-color: ${randomColor}`);
+        return;
+    }
+    event.target.style.backgroundColor = "black"
 }
 
 function eraseSquare(event) {
-    for (className of event.target.classList) {
-        if (className !== "square") {
-            event.target.classList.remove("color-black");
-        }
-    }
+    event.target.removeAttribute("style");
 }
 
+function generateRandomRGBColor() {
+    const randomR = Math.floor(Math.random() * 255) + 1;
+    const randomG = Math.floor(Math.random() * 255) + 1;
+    const randomB = Math.floor(Math.random() * 255) + 1;
+    return `rgb(${randomR},${randomG},${randomB})`;
+}

@@ -1,0 +1,21 @@
+.grid {
+    width: 400px;
+    height: 400px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex: 1;
+}
+
+.square {
+    border: 1px solid black;
+    flex: 1;
+}
+
+.hover {
+    background-color: black;
+}

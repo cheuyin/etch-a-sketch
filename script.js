@@ -23,14 +23,15 @@ function renderGrid (size) {
         for (let j = 0; j < size; j++) {
             const square = document.createElement("div");
             square.classList.add("square");
+
             row.appendChild(square);
-    
-            square.addEventListener("mouseover", () => {
-                square.classList.add("hover")
-            });
+            square.addEventListener("mousedown", turnOnDrawing);
         }
         drawingGrid.appendChild(row);
     }
+
+    // If mouse click is released anywhere on the page, stop drawing
+    document.addEventListener("mouseup", turnOffDrawing);
 }
 
 function showGridSize(size) {
@@ -39,4 +40,29 @@ function showGridSize(size) {
 
 function deleteOldGrid() {
     drawingGrid.textContent = "";
+}
+
+function turnOnDrawing(event) {
+    colorSquare(event);
+    const rows = [...drawingGrid.children];
+    for (row of rows) {
+        const squareList = [...row.children];
+        for (square of squareList) {
+            square.addEventListener("mouseover", colorSquare);
+        }
+    }
+}
+
+function turnOffDrawing() {
+    const rows = [...drawingGrid.children];
+    for (row of rows) {
+        const squareList = [...row.children];
+        for (square of squareList) {
+            square.removeEventListener("mouseover", colorSquare);
+        }
+    }
+}
+
+function colorSquare(event) {
+    event.target.classList.add("color-black")
 }

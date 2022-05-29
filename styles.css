@@ -1,7 +1,6 @@
 .grid {
     width: 400px;
     height: 400px;
-    background-color: red;
     display: flex;
     flex-direction: column;
 }
@@ -16,6 +15,6 @@
     flex: 1;
 }
 
-.hover {
+.color-black {
     background-color: black;
 }

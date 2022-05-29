@@ -9,8 +9,8 @@
     <script src="./script.js" defer></script>
     <title>Etch-a-Sketch</title>
 </head>
-<body>
-    <div class="grid">
+<body ondragstart="return false;" ondrop="return false;">
+    <div class="grid"> 
     </div>
     <div class="grid-size-slider">
         <input name='slider' type="range" min="2" max="64" value="10" list="tickmarks">

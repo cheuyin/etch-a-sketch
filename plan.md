@@ -15,7 +15,7 @@ Details:
 
 Priority:
     [x] Create a single grid that gets colored black when a mouse hovers over
-    2. Create a slider to change grid size from 2x2 to 64x64
+    [x] Create a slider to change grid size from 2x2 to 64x64
     3. Only allow shading when left click button is held 
     4. Add a "clear" button
     5. Add an eraser

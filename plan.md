@@ -22,6 +22,6 @@ Priority:
     [x] Add "rainbow mode" 
     [x] Add RGB color change button 
     [x] Add a "toggle shading" button
-    9. Create CSS that's responsive 
+    [x] Create CSS that's responsive 
     
 

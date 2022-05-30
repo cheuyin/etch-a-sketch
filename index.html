@@ -10,26 +10,46 @@
     <title>Etch-a-Sketch</title>
 </head>
 <body ondragstart="return false;" ondrop="return false;">
-    <div class="grid"> 
+    <h1>Etch-a-Sketch</h1>
+    <div class="main">
+        <div class="empty">
+
+        </div>
+        <div class="grid-container">
+            <div class="grid"> 
+            </div>
+            <div class="grid-size-slider">
+                <label for="slider"></label>
+                <input name='slider' type="range" min="2" max="100" value="10" list="tickmarks">
+            </div>
+        </div>
+    
+        <div class="controls-container">
+            <div class="controls">
+                <div class="color-picker">
+                    <input type="color" value="#000000">
+                </div>
+                <div class="shading-mode">
+                    <button>Shading Mode</button>
+                </div>
+                <div class="rainbow-mode">
+                    <button>Rainbow Mode</button>
+                </div>
+                <div class="eraser">
+                    <button>Eraser</button>
+                </div>
+                <div class="clear">
+                    <button>Clear</button>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div class="grid-size-slider">
-        <input name='slider' type="range" min="2" max="100" value="10" list="tickmarks">
-        <label for="slider"></label>
+    <div class="signature">
+        <a href="https://github.com/cheuyin" target="_blank">
+            Made by cheuyin <img src="./images/github-brands.svg" width="20px">
+        </a>
     </div>
-    <div class="clear">
-        <button>Clear</button>
-    </div>
-    <div class="eraser">
-        <button>Eraser</button>
-    </div>
-    <div class="rainbow-mode">
-        <button>Rainbow Mode</button>
-    </div>
-    <div class="color-picker">
-        <input type="color" value="#000000">
-    </div>
-    <div class="shading-mode">
-        <button>Shading Mode</button>
-    </div>
+
 </body>
 </html>

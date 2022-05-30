@@ -1,9 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Satisfy&display=swap');
+
+* {
+    font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+    font-family: "Satisfy", sans-serif;
+    font-size: 48px;
+    text-align: center;
+}
+
+body {
+    background-color: rgb(251, 251, 251);
+}
+
+.main {
+    display: flex;
+    gap: 40px;
+}
+
+.empty {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.grid-container {
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid-size-slider {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+}
+
+.grid-size-slider label {
+    font-size: 25px;
+    font-weight: 700;
+    color: rgb(88, 88, 88);
+}
+
+.controls-container {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.controls {
+    width: 200px;
+
+}
+
+.controls-container div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.color-picker {
+    align-self: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    border: none;
+    background: transparent;
+}
+
+.color-picker input {
+    border: none;
+    width: 100px;
+    cursor: pointer;
+    height: 100px;
+    text-align: center;
+    background: transparent;
+}
+
 .grid {
     width: 400px;
     height: 400px;
     display: flex;
     flex-direction: column;
-    border: 5px solid black;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 .row {
@@ -15,6 +99,136 @@
     flex: 1;
 }
 
+button {
+    border: none;
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+button:hover:not(.on) {
+    background-color: #E3E3E3;
+}
+
 .on {
     background-color: pink;
 }
+
+/* Slider styling: https://www.cssportal.com/style-input-range/ */
+input[type=range] {
+    height: 27px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 9px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #D4D4D4;
+    border-radius: 8px;
+    border: 0px solid #8A8A8A;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #828282;
+    border: 0px solid #8A8A8A;
+    height: 21px;
+    width: 29px;
+    border-radius: 10px;
+    background: #E3E3E3;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #D4D4D4;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 9px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #D4D4D4;
+    border-radius: 8px;
+    border: 0px solid #8A8A8A;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #828282;
+    border: 0px solid #8A8A8A;
+    height: 21px;
+    width: 29px;
+    border-radius: 10px;
+    background: #E3E3E3;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 9px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #D4D4D4;
+    border: 0px solid #8A8A8A;
+    border-radius: 16px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #D4D4D4;
+    border: 0px solid #8A8A8A;
+    border-radius: 16px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px #828282;
+    border: 0px solid #8A8A8A;
+    height: 21px;
+    width: 29px;
+    border-radius: 10px;
+    background: #E3E3E3;
+    cursor: pointer;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #D4D4D4;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #D4D4D4;
+  }
+
+.signature {
+    margin: 50px 0;
+    text-align: center;
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    align-items: center;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 950px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+  }

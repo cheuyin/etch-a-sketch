@@ -22,6 +22,7 @@ gridSizeSlider.addEventListener("change", (event) => {
 });
 
 clearButton.addEventListener("click", () => {
+    eraserButton.classList.remove("on");
     deleteOldGrid();
     const currentGridSize = gridSizeSlider.getAttribute("value")
     renderGrid(currentGridSize);
@@ -29,6 +30,7 @@ clearButton.addEventListener("click", () => {
 
 eraserButton.addEventListener("click", (event) => {
     rainbowModeButton.classList.remove("on");
+    shadingModeButton.classList.remove("on");
     event.target.classList.toggle("on");
 });
 
@@ -105,41 +107,39 @@ function turnOffDrawingOrErasing() {
 }
 
 function colorSquare(event) {
+    const square = event.target;
+
+    // Check if shading mode is turned on
     if (shadingModeButton.classList.contains("on")) {
         shadeSquare(event);
         return;
     }
 
-    if (event.target.style.backgroundColor !== "") {
+    // Do not color if square has already been colored
+    if (square.style.backgroundColor !== "") {
         return false;
     }
     
     // Color randomly if rainbow mode is on
     if (rainbowModeButton.classList.contains("on")) {
         const randomColor = generateRandomRGBColor();
-        event.target.setAttribute("style", `background-color: ${randomColor}`);
+        square.setAttribute("style", `background-color: ${randomColor}`);
         return;
     }
 
     // Color the square
-    const color = RGBHexToDecimal(colorPicker.getAttribute("value"));
-    event.target.style.backgroundColor = `rgba(${color[0]}, 
-        ${color[1]}, 
-        ${color[2]}, 1)`;
+    square.style.backgroundColor = getColorPickerColor();
 }
 
 function eraseSquare(event) {
     event.target.removeAttribute("style");
 }
 
-function generateRandomRGBColor() {
+function generateRandomRGBColor(opacity = 1) {
     const randomR = Math.floor(Math.random() * 255) + 1;
     const randomG = Math.floor(Math.random() * 255) + 1;
     const randomB = Math.floor(Math.random() * 255) + 1;
-    if (shadingModeButton.classList.contains("on")) {
-        return `rgba(${randomR},${randomG},${randomB}, 0.1)`;
-    }
-    return `rgba(${randomR},${randomG},${randomB}, 1)`;
+    return `rgba(${randomR},${randomG},${randomB}, ${opacity})`;
 }
 
 function RGBHexToDecimal (hexString) {;
@@ -151,20 +151,14 @@ function RGBHexToDecimal (hexString) {;
 
 function shadeSquare(event) {
     const square = event.target;
+
     if (square.style.backgroundColor === "" && rainbowModeButton.classList.contains("on")) {
-        const randomR = Math.floor(Math.random() * 255) + 1;
-        const randomG = Math.floor(Math.random() * 255) + 1;
-        const randomB = Math.floor(Math.random() * 255) + 1;
-        if (shadingModeButton.classList.contains("on")) {
-            square.style.backgroundColor = `rgba(${randomR},${randomG},${randomB}, 0.1)`;
-        }
+        square.style.backgroundColor = generateRandomRGBColor(0.1);
+        return;
     }
+
     if (square.style.backgroundColor === "") {
-        const color = RGBHexToDecimal(colorPicker.getAttribute("value"));
-        event.target.style.backgroundColor = `rgba(${color[0]}, 
-            ${color[1]}, 
-            ${color[2]},
-            ${0.1})`;
+        square.style.backgroundColor = getColorPickerColor(0.1);
         return;
     }
 
@@ -176,14 +170,21 @@ function shadeSquare(event) {
         currentOpacity += 0.2;
     }
 
-    event.target.style.backgroundColor = `rgba(${currentColor[0]}, 
+    square.style.backgroundColor = `rgba(${currentColor[0]}, 
                 ${currentColor[1]}, 
                 ${currentColor[2]}, 
                 ${currentOpacity})`;
-    return;
 } 
 
 function parse_rgb_string(rgb) {
     rgb = rgb.replace(/[^\d,]/g, '').split(',');
     return rgb;
+ }
+
+ function getColorPickerColor(opacity=1) {
+    const color = RGBHexToDecimal(colorPicker.getAttribute("value"));
+    return `rgba(${color[0]}, 
+        ${color[1]}, 
+        ${color[2]},
+        ${opacity})`;
  }

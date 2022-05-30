@@ -9,8 +9,6 @@ const colorPicker = document.querySelector(".color-picker input");
 const shadingModeButton = document.querySelector(".shading-mode button");
 
 
-let currentColor = [];
-
 renderGrid(initialGridSize)
 showGridSize(initialGridSize)
 
@@ -107,6 +105,11 @@ function turnOffDrawingOrErasing() {
 }
 
 function colorSquare(event) {
+    if (shadingModeButton.classList.contains("on")) {
+        shadeSquare(event);
+        return;
+    }
+
     if (event.target.style.backgroundColor !== "") {
         return false;
     }
@@ -118,19 +121,11 @@ function colorSquare(event) {
         return;
     }
 
-    // If shading mode on, increase opacity if less than 1
-    if (shadingModeButton.classList.contains("on")) {
-        const currentColor = RGBHexToDecimal(colorPicker.getAttribute("value"));
-        console.log(currentColor)
-        event.target.style.backgroundColor = `rgba(${currentColor[0]}, 
-                    ${currentColor[1]}, 
-                    ${currentColor[2]}, 
-                    ${0.1})`;
-        return;
-    }
-
     // Color the square
-    event.target.style.backgroundColor = colorPicker.getAttribute("value");
+    const color = RGBHexToDecimal(colorPicker.getAttribute("value"));
+    event.target.style.backgroundColor = `rgba(${color[0]}, 
+        ${color[1]}, 
+        ${color[2]}, 1)`;
 }
 
 function eraseSquare(event) {
@@ -141,7 +136,10 @@ function generateRandomRGBColor() {
     const randomR = Math.floor(Math.random() * 255) + 1;
     const randomG = Math.floor(Math.random() * 255) + 1;
     const randomB = Math.floor(Math.random() * 255) + 1;
-    return `rgb(${randomR},${randomG},${randomB})`;
+    if (shadingModeButton.classList.contains("on")) {
+        return `rgba(${randomR},${randomG},${randomB}, 0.1)`;
+    }
+    return `rgba(${randomR},${randomG},${randomB}, 1)`;
 }
 
 function RGBHexToDecimal (hexString) {;
@@ -150,3 +148,42 @@ function RGBHexToDecimal (hexString) {;
     const b = parseInt(hexString.slice(5), 16);
     return [r, g, b];
 }
+
+function shadeSquare(event) {
+    const square = event.target;
+    if (square.style.backgroundColor === "" && rainbowModeButton.classList.contains("on")) {
+        const randomR = Math.floor(Math.random() * 255) + 1;
+        const randomG = Math.floor(Math.random() * 255) + 1;
+        const randomB = Math.floor(Math.random() * 255) + 1;
+        if (shadingModeButton.classList.contains("on")) {
+            square.style.backgroundColor = `rgba(${randomR},${randomG},${randomB}, 0.1)`;
+        }
+    }
+    if (square.style.backgroundColor === "") {
+        const color = RGBHexToDecimal(colorPicker.getAttribute("value"));
+        event.target.style.backgroundColor = `rgba(${color[0]}, 
+            ${color[1]}, 
+            ${color[2]},
+            ${0.1})`;
+        return;
+    }
+
+    let currentColor = parse_rgb_string(square.style.backgroundColor);
+
+    let currentOpacity = +currentColor[3] / 10;
+
+    if (currentOpacity <= 0.8) {
+        currentOpacity += 0.2;
+    }
+
+    event.target.style.backgroundColor = `rgba(${currentColor[0]}, 
+                ${currentColor[1]}, 
+                ${currentColor[2]}, 
+                ${currentOpacity})`;
+    return;
+} 
+
+function parse_rgb_string(rgb) {
+    rgb = rgb.replace(/[^\d,]/g, '').split(',');
+    return rgb;
+ }
